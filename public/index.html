@@ -30,11 +30,12 @@
     </div>
     <div id="message-input-area">
       <input type="text" id="message-input" placeholder="Digite uma mensagem...">
+      <input type="file" id="file-input" accept="image/*,video/*">
       <button id="send-button">Enviar</button>
       <button id="logout-button" onclick="logout()">Sair</button>
     </div>
   </div>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="script.js"></script>
 </body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
 </html>

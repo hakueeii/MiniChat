@@ -1,6 +1,7 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
@@ -19,7 +20,8 @@ io.on('connection', (socket) => {
     } else {
       currentUser = nickname;
       users.push(nickname);
-      io.emit('user list', users); // Atualizar lista de usuários conectados
+      users.sort(); // Ordena a lista de usuários em ordem alfabética
+      io.emit('user list', users); // Atualiza a lista de usuários conectados
       callback({ success: true });
     }
   });
@@ -27,7 +29,8 @@ io.on('connection', (socket) => {
   socket.on('user left', (nickname) => {
     if (currentUser === nickname) {
       users = users.filter(user => user !== nickname);
-      io.emit('user list', users); // Atualizar lista de usuários conectados
+      users.sort(); // Ordena a lista de usuários em ordem alfabética
+      io.emit('user list', users); // Atualiza a lista de usuários conectados
     }
   });
 
@@ -38,7 +41,8 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     if (currentUser) {
       users = users.filter(user => user !== currentUser);
-      io.emit('user list', users); // Atualizar lista de usuários conectados
+      users.sort(); // Ordena a lista de usuários em ordem alfabética
+      io.emit('user list', users); // Atualiza a lista de usuários conectados
     }
   });
 });

@@ -22,14 +22,36 @@ function initializeSocket(nickname) {
       document.getElementById('login-container').classList.add('hidden');
 
       socket.on('chat message', (data) => {
-        const { message, user, timestamp } = data;
+        const { message, user, timestamp, file } = data;
         const item = document.createElement('li');
         item.className = 'message';
-        item.innerHTML = `
-          <span class="timestamp">${timestamp}</span>
-          <span class="username">${user}:</span>
-          <span class="text">${message}</span>
-        `;
+
+        if (file) {
+          if (file.type.startsWith('image/')) {
+            item.innerHTML = `
+              <span class="timestamp">${timestamp}</span>
+              <span class="username">${user}:</span>
+              <span class="text">${message || ''}</span>
+              <img src="${file.url}" alt="Imagem" class="message-img">
+              <a href="${file.url}" download>${file.name}</a>
+            `;
+          } else if (file.type.startsWith('video/')) {
+            item.innerHTML = `
+              <span class="timestamp">${timestamp}</span>
+              <span class="username">${user}:</span>
+              <span class="text">${message || ''}</span>
+              <video controls src="${file.url}" class="message-video"></video>
+              <a href="${file.url}" download>${file.name}</a>
+            `;
+          }
+        } else {
+          item.innerHTML = `
+            <span class="timestamp">${timestamp}</span>
+            <span class="username">${user}:</span>
+            <span class="text">${message}</span>
+          `;
+        }
+
         document.getElementById('messages').appendChild(item);
       });
 
@@ -53,12 +75,47 @@ function initializeSocket(nickname) {
         }
       });
 
+      document.getElementById('file-input').addEventListener('change', handleFileSelect);
+
       function sendMessage() {
         const input = document.getElementById('message-input');
-        if (input.value.trim()) {
+        const fileInput = document.getElementById('file-input');
+        const file = fileInput.files[0];
+        
+        if (input.value.trim() || file) {
           const timestamp = new Date().toLocaleTimeString();
-          socket.emit('chat message', { message: input.value, user: nickname, timestamp });
-          input.value = '';
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+              socket.emit('chat message', { 
+                message: input.value, 
+                user: nickname, 
+                timestamp, 
+                file: { 
+                  url: event.target.result, 
+                  name: file.name,
+                  type: file.type 
+                } 
+              });
+              fileInput.value = ''; // Clear file input after sending
+            };
+            reader.readAsDataURL(file);
+          } else {
+            socket.emit('chat message', { 
+              message: input.value, 
+              user: nickname, 
+              timestamp 
+            });
+          }
+          input.value = ''; // Clear message input after sending
+        }
+      }
+
+      function handleFileSelect(event) {
+        // Apenas exibe o nome do arquivo, não é necessário alterar o preview
+        const file = event.target.files[0];
+        if (file) {
+          console.log('Arquivo selecionado:', file.name);
         }
       }
     }

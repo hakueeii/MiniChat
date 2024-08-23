@@ -51,6 +51,7 @@ body {
     display: flex;
     padding: 10px;
     border-top: 1px solid #ddd;
+    align-items: center;
   }
   
   #message-input {
@@ -58,6 +59,10 @@ body {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+  }
+  
+  #file-input {
+    margin-left: 10px;
   }
   
   #send-button, #logout-button {
@@ -86,5 +91,21 @@ body {
   
   .username {
     font-weight: bold;
+  }
+  
+  .message-img, .message-video {
+    max-width: 300px;
+    max-height: 300px;
+    display: block;
+    margin: 10px 0;
+  }
+  
+  .message-file a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .message-file a:hover {
+    text-decoration: underline;
   }
   
