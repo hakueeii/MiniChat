@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  #login-container {
+    text-align: center;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  #chat-container {
+    width: 600px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  #chat-area {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  #messages-container {
+    flex: 2;
+    overflow-y: scroll;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+  }
+  
+  #user-list-container {
+    flex: 1;
+    overflow-y: scroll;
+    padding: 10px;
+    border-left: 1px solid #ddd;
+  }
+  
+  #message-input-area {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  #message-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  #send-button, #logout-button {
+    margin-left: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  #send-button:hover, #logout-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .message {
+    margin-bottom: 10px;
+  }
+  
+  .timestamp {
+    color: #888;
+    font-size: 0.75em;
+    margin-right: 5px;
+  }
+  
+  .username {
+    font-weight: bold;
+  }
+  
