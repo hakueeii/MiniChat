@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Tela de Login -->
+  <div id="login-container">
+    <h1>Bem-vindo ao Chat</h1>
+    <div>
+      <label for="nickname">Digite seu apelido:</label>
+      <input type="text" id="nickname" placeholder="Seu apelido">
+      <button onclick="enterAsVisitor()">Entrar como Visitante</button>
+    </div>
+  </div>
+
+  <!-- Tela de Chat -->
+  <div id="chat-container" class="hidden">
+    <div id="chat-area">
+      <div id="messages-container">
+        <ul id="messages"></ul>
+      </div>
+      <div id="user-list-container">
+        <h3>Usuários Conectados</h3>
+        <ul id="user-list"></ul>
+      </div>
+    </div>
+    <div id="message-input-area">
+      <input type="text" id="message-input" placeholder="Digite uma mensagem...">
+      <input type="file" id="file-input" accept="image/*,video/*">
+      <button id="send-button">Enviar</button>
+      <button id="logout-button" onclick="logout()">Sair</button>
+    </div>
+  </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
+</html>
